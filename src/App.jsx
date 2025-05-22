@@ -1,25 +1,18 @@
-import { Routes, Route, Link } from 'react-router-dom'
-import './App.css'
-
-import Home from './pages/Home';
-import Bookings from './pages/Bookings';
-import EventDetails from './pages/EventDetails';
+import { Routes, Route } from "react-router-dom";
+import Layout from "./components/Layout";
+import Home from "./pages/Home";
+import Bookings from "./pages/Bookings";
+import EventDetails from "./pages/EventDetails";
+import './App.css';
 
 function App() {
-
   return (
-    <div>
-      <nav>
-        <Link to="/" >Dashboard</Link> |{" "}
-        <Link to="/bookings">Bookings</Link> |{" "}
-      </nav>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/event/:id" element={<EventDetails />} />
-        <Route path="/bookings" element={<Bookings />} />
-      </Routes>
-    </div>
-  )
+    <Routes>
+      <Route path="/" element={<Layout><Home /></Layout>} />
+      <Route path="/bookings" element={<Layout><Bookings /></Layout>} />
+      <Route path="/event/:id" element={<Layout><EventDetails /></Layout>} />
+    </Routes>
+  );
 }
 
-export default App
+export default App;

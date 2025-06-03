@@ -1,3 +1,4 @@
+import Notification from "./Notification";
 import Sidebar from "./Sidebar";
 
 export default function Layout({ children }) {

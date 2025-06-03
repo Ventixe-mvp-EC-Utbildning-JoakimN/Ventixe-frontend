@@ -13,7 +13,7 @@ export default function Sidebar() {
       <div className="text-2xl font-bold mb-6">🎟️ Ventixe</div>
       <nav className="flex flex-col space-y-4">
         <Link to="/" className={linkClass("/")}>Dashboard</Link>
-        <Link to="/bookings" className={linkClass("/bookings")}>Bookings</Link>
+        <Link to="/events" className={linkClass("/events")}>All Events</Link>
       </nav>
     </div>
   );

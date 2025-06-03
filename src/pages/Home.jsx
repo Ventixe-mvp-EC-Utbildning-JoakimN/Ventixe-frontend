@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Eventcard from "../components/Eventcard";
 import BookedEventCard from "../components/BookedEventCard";
+import Notification from "../components/Notification";
 
 export default function Home() {
   const [events, setEvents] = useState([]);
@@ -38,8 +39,10 @@ export default function Home() {
 
     return (
       <div>
+        <div>
         <h1 className="text-3xl font-bold mb-6 text-center text-[#2358A6]">Dashboard</h1>
-  
+
+        </div>
         <div className="bg-white p-6 rounded-xl shadow-md">
           <h2 className="text-xl font-semibold mb-4">Upcoming Events</h2>
           <ul className="space-y-4">
@@ -54,7 +57,7 @@ export default function Home() {
         {bookedEvents.length === 0 ? (
           <p className="text-gray-500 italic">You haven't booked any events yet</p>
         ) : (          
-          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <ul className="flex flex-wrap gap-4">
           {bookedEvents.map(event => (
             <BookedEventCard key={`booked-${event.id}`} event={event} onClick={setSelectedBooking}/>
           ))}

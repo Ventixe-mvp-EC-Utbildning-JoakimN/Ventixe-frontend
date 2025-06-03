@@ -1,8 +1,7 @@
 function BookedEventCard({ event, onClick }) {
-    console.log("Image URL:", event.imageUrl);
 
   return (
-    <li className="bg-white rounded-2xl w-54 shadow flex flex-col gap-1 cursor-pointer hover:bg-gray-50 transition" onClick={() => onClick(event)}>
+    <li className="bg-white rounded-2xl w-[220px] shadow flex flex-col gap-1 cursor-pointer hover:bg-gray-50 transition" onClick={() => onClick(event)}>
         <div className="w-auto h-40 bg-gray-100 rounded mb-2"></div>
         <div className="text-xs mb-2 px-4">
             <span className="inline-block bg-gray-100 text-gray-700 px-2 py-1 rounded-full">

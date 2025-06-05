@@ -13,22 +13,20 @@ export default function Home() {
   }, [])
 
   const handleBooking = (eventId) => {
-  fetch("https://localhost:7118/api/bookings", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ eventId }),
-  })
-    .then((res) => {
-      if (!res.ok) throw new Error("Booking failed");
-      return res.json();
+    fetch("https://localhost:7118/api/bookings", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ eventId }),
     })
-    .then(() => {
-      alert("✅ Event booked!");
-    })
-    .catch((err) => console.error("Booking error:", err));
-};
+      .then((res) => {
+        if (!res.ok) throw new Error("Booking failed");
+        return res.json();
+      })
+      .then(() => {
+        alert("✅ Event booked!");
+      })
+      .catch((err) => console.error("Booking error:", err));
+  };
 
     return (
       <div className="p-6">

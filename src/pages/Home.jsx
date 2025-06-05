@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import Eventcard from "../components/Eventcard";
 import BookedEventCard from "../components/BookedEventCard";
-import Notification from "../components/Notification";
 
 export default function Home() {
   const [events, setEvents] = useState([]);
@@ -11,38 +10,49 @@ export default function Home() {
 
   useEffect(() => {
     fetch("https://localhost:7072/api/events")
-    .then(res => res.json())
-    .then(data => setEvents(data))
-    .catch(err => console.error("API error:", err));
-  }, []);
+      .then((res) => res.json())
+      .then((data) => setEvents(data))
+      .catch((err) => console.error("API error:", err));
+
+    // 🔹 Hämta senaste bokningarna från databasen
+    fetch("https://localhost:7118/api/bookings")
+      .then((res) => res.json())
+      .then((data) => {
+        // hämta de 5 senaste bokningarna
+        const latest = data.slice(-5).reverse();
+
+        // matcha event-data med bokningar
+        const enriched = latest.map((b) => {
+          const event = events.find((e) => e.id === b.eventId);
+          return event ? { ...event, id: b.id } : null;
+        }).filter(Boolean); // ta bort null
+
+        setBookedEvents(enriched);
+      })
+      .catch((err) => console.error("Booking fetch error:", err));
+  }, [events]);
 
 
   const handleBooking = (eventId) => {
     fetch("https://localhost:7118/api/bookings", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ eventId }),
     })
       .then((res) => {
-        if(!res.ok) throw new Error("Failed to book event");
+        if (!res.ok) throw new Error("Failed to book event");
         return res.json();
       })
       .then(() => {
-        const bookedEvent = events.find(e => e.id === eventId);
-        setBookedEvents(prev => [...prev, bookedEvent]);
+        const bookedEvent = events.find((e) => e.id === eventId);
+        setBookedEvents((prev) => [bookedEvent, ...prev].slice(0, 5));
       })
-      .catch((err) => console.error("Booking error:", err))
-  }
+      .catch((err) => console.error("Booking error:", err));
+  };
 
 
     return (
       <div>
-        <div>
-        <h1 className="text-3xl font-bold mb-6 text-center text-[#2358A6]">Dashboard</h1>
-
-        </div>
         <div className="bg-white p-6 rounded-xl shadow-md">
           <h2 className="text-xl font-semibold mb-4">Upcoming Events</h2>
           <ul className="space-y-4">

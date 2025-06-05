@@ -9,7 +9,7 @@ export default function Sidebar() {
       : "text-gray-700 hover:text-pink-400";
 
   return (
-    <div className="w-64 min-h-screen bg-purple-50 p-4">
+    <div className="hidden sm:block w-64 min-h-screen bg-purple-50 p-4">
       <div className="text-2xl font-bold mb-6">🎟️ Ventixe</div>
       <nav className="flex flex-col space-y-4">
         <Link to="/" className={linkClass("/")}>Dashboard</Link>

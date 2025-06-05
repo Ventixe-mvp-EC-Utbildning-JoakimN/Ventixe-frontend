@@ -11,7 +11,7 @@ export default function Notification() {
 
   useEffect(() => {
     const fetchNotifications = () => {
-      fetch("https://localhost:7018/api/notifications")
+      fetch("https://ventixe-joakim-ec-api-notifications.azurewebsites.net/api/notifications")
         .then(res => res.json())
         .then(data => {
           const sorted = data.sort((a, b) => b.id - a.id);

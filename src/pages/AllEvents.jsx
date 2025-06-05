@@ -6,14 +6,14 @@ export default function Home() {
   const [events, setEvents] = useState([])
 
   useEffect(() => {
-    fetch("https://localhost:7072/api/events")
+    fetch("https://ventixe-joakim-ec-api-events.azurewebsites.net/api/events")
     .then(res => res.json())
     .then(data => setEvents(data))
     .catch(err => console.error("Fetching Booking error:", err))
   }, [])
 
   const handleBooking = (eventId) => {
-    fetch("https://localhost:7118/api/bookings", {
+    fetch("https://ventixe-joakim-ec-api-bookings.azurewebsites.net/api/bookings", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ eventId }),

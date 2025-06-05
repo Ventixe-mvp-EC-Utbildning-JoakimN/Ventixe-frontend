@@ -9,23 +9,23 @@ export default function Home() {
 
 
   useEffect(() => {
-    fetch("https://localhost:7072/api/events")
+    fetch("https://ventixe-joakim-ec-api-events.azurewebsites.net/api/events")
       .then((res) => res.json())
       .then((data) => setEvents(data))
       .catch((err) => console.error("API error:", err));
 
-    // 🔹 Hämta senaste bokningarna från databasen
-    fetch("https://localhost:7118/api/bookings")
+
+    fetch("https://ventixe-joakim-ec-api-bookings.azurewebsites.net/api/bookings")
       .then((res) => res.json())
       .then((data) => {
-        // hämta de 5 senaste bokningarna
+
         const latest = data.slice(-5).reverse();
 
-        // matcha event-data med bokningar
+
         const enriched = latest.map((b) => {
           const event = events.find((e) => e.id === b.eventId);
           return event ? { ...event, id: b.id } : null;
-        }).filter(Boolean); // ta bort null
+        }).filter(Boolean);
 
         setBookedEvents(enriched);
       })
@@ -34,7 +34,7 @@ export default function Home() {
 
 
   const handleBooking = (eventId) => {
-    fetch("https://localhost:7118/api/bookings", {
+    fetch("https://ventixe-joakim-ec-api-bookings.azurewebsites.net/api/bookings", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ eventId }),

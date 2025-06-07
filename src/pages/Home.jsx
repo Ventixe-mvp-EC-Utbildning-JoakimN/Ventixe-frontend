@@ -8,29 +8,29 @@ export default function Home() {
   const [selectedBooking, setSelectedBooking] = useState(null);
 
 
-  useEffect(() => {
-    fetch("https://ventixe-joakim-ec-api-events.azurewebsites.net/api/events")
-      .then((res) => res.json())
-      .then((data) => setEvents(data))
-      .catch((err) => console.error("API error:", err));
+useEffect(() => {
+  fetch("https://ventixe-joakim-ec-api-events.azurewebsites.net/api/events")
+    .then((res) => res.json())
+    .then((data) => {
+      setEvents(data);
 
-
-    fetch("https://ventixe-joakim-ec-api-bookings.azurewebsites.net/api/bookings")
-      .then((res) => res.json())
-      .then((data) => {
-
-        const latest = data.slice(-5).reverse();
-
-
-        const enriched = latest.map((b) => {
+      
+    return fetch("https://ventixe-joakim-ec-api-bookings.azurewebsites.net/api/bookings");
+    })
+    .then((res) => res.json())
+    .then((bookings) => {
+      const latest = bookings.slice(-5).reverse();
+      const enriched = latest
+        .map((b) => {
           const event = events.find((e) => e.id === b.eventId);
           return event ? { ...event, id: b.id } : null;
-        }).filter(Boolean);
+        })
+        .filter(Boolean);
 
-        setBookedEvents(enriched);
-      })
-      .catch((err) => console.error("Booking fetch error:", err));
-  }, []);
+      setBookedEvents(enriched);
+    })
+    .catch((err) => console.error("Fetch chain error:", err));
+}, []);
 
 
   const handleBooking = (eventId) => {

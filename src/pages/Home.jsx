@@ -30,7 +30,7 @@ export default function Home() {
         setBookedEvents(enriched);
       })
       .catch((err) => console.error("Booking fetch error:", err));
-  }, [events]);
+  }, []);
 
 
   const handleBooking = (eventId) => {

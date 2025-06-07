@@ -30,7 +30,7 @@ export default function Home() {
 
     return (
       <div className="p-6">
-        <h1 className="text-3xl font-bold mb-4">All Bookings</h1>
+        <h1 className="text-3xl font-bold mb-4">All Events</h1>
         <ul className="grid grid-cols1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {events.map((event) => (
           <Eventcard key={event.id} event={event} onBook={handleBooking} />
